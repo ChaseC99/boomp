@@ -1,0 +1,258 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon';
+import TeamBadge from '../components/TeamBadge';
+import { event, getTournamentData } from '../data/tournament';
+const { teams } = await getTournamentData();
+const details = [
+  {
+    icon: 'calendar',
+    label: 'Date',
+    value: event.shortDate,
+    note: 'Weather permitting',
+  },
+  {
+    icon: 'clock',
+    label: 'Time',
+    value: event.time,
+    note: 'Match times to be confirmed',
+  },
+  {
+    icon: 'pin',
+    label: 'Location',
+    value: event.location,
+  },
+  {
+    icon: 'ball',
+    label: 'Volleyball',
+    value: event.format,
+    note: '3 teams of 8 · 24 players',
+  },
+  { icon: 'ghost', label: 'Dress code', value: 'Costumes encouraged' },
+] as const;
+---
+
+<Layout active="info">
+  <div class="wrap info-page">
+    <header class="event-intro">
+      <h1>{event.name}</h1>
+      <img
+        src="/images/halloween-volleyball.png"
+        alt="A pumpkin and ghost playing volleyball."
+        width="1280"
+        height="1280"
+        fetchpriority="high"
+      />
+    </header>
+    <section class="info-card" aria-label="Event details">
+      <dl class="event-details">
+        {details.map((item) => (
+          <div class="event-row">
+            <dt>
+              <Icon name={item.icon} size={21} />
+              <span>{item.label}</span>
+            </dt>
+            <dd>
+              <span>{item.value}</span>
+              {'note' in item && <small>{item.note}</small>}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+    <section class="weather-card" aria-labelledby="weather-heading">
+      <div class="weather-top">
+        <div>
+          <h2 id="weather-heading">Plan for the park</h2>
+          <p>Volleyball, costumes & cozy layers.</p>
+        </div>
+        <Icon name="cloud" size={44} />
+      </div>
+      <p class="weather-tip">
+        Bring a warm layer for the sidelines and check the forecast before
+        heading out on Sunday.
+      </p>
+    </section>
+
+    <aside class="demo-notice event-placeholder" aria-label="Planning note">
+      <Icon name="info" size={17} />
+      <p>
+        Four-player groups and match times are still being planned. Rules and
+        prizes below remain placeholders from the original event.
+      </p>
+    </aside>
+
+    <section class="info-section" aria-labelledby="format-heading">
+      <div class="section-heading">
+        <Icon name="ball" size={21} />
+        <h2 id="format-heading">How the day works</h2>
+      </div>
+      <ol class="format-steps info-card">
+        <li>
+          <span class="step-number" aria-hidden="true">
+            01
+          </span>
+          <div>
+            <h3>Three teams of eight</h3>
+            <p>
+              There are 24 players across Team 1, Team 2, and Team 3. Find your
+              team in the lineup below.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">
+            02
+          </span>
+          <div>
+            <h3>Split into groups of four</h3>
+            <p>
+              Each eight-player team splits into two groups of four for 4v4
+              games. The four-player groups will be assigned later.
+            </p>
+          </div>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">
+            03
+          </span>
+          <div>
+            <h3>Three courts at a time</h3>
+            <p>
+              Three 4v4 games can run at once, with room for all 24 players to
+              play at the same time. Matchups and times are coming soon.
+            </p>
+          </div>
+        </li>
+      </ol>
+      <p class="section-note">
+        {teams.length} teams ·{' '}
+        {teams.reduce((count, team) => count + team.players.length, 0)} players
+        · 3 courts
+      </p>
+    </section>
+
+    <section class="info-section" aria-labelledby="teams-heading">
+      <div class="section-heading">
+        <Icon name="ghost" size={21} />
+        <h2 id="teams-heading">The team lineup</h2>
+        <span class="section-count">3 teams · 24 players</span>
+      </div>
+      <ol class="team-lineup">
+        {teams.map((team) => (
+          <li class="info-card roster-card">
+            <div class="roster-heading">
+              <TeamBadge team={team} />
+              <div>
+                <h3>{team.name}</h3>
+                <p>{team.players.length} players</p>
+              </div>
+            </div>
+            <ul class="roster-players">
+              {team.players.map((player) => (
+                <li>{player}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="info-section" aria-labelledby="packing-heading">
+      <div class="section-heading">
+        <Icon name="bag" size={21} />
+        <h2 id="packing-heading">Pack for the day</h2>
+      </div>
+      <div class="info-card packing-card">
+        <ul class="packing-list">
+          {[
+            'Costume & layers',
+            'Water & snacks',
+            'Sunscreen & sunglasses',
+            'Chair & picnic blanket',
+            'Volleyballs',
+            'Canopy, if you have one',
+          ].map((item) => (
+            <li>
+              <Icon name="check" size={16} />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="card-footer">
+          Let's make a mega canopy! Net owners: the organizer will coordinate
+          with you directly.
+        </p>
+      </div>
+    </section>
+
+    <section class="info-section" aria-labelledby="rules-heading">
+      <div class="section-heading">
+        <Icon name="info" size={21} />
+        <h2 id="rules-heading">Court etiquette</h2>
+      </div>
+      <p>
+        Standard outdoor rules. Call your own open hand receives and doubles
+        honestly, stay out of neighboring courts, and play safe.
+      </p>
+      <div class="house-rules">
+        <div class="house-rule">
+          <span class="rule-label">House rule 01</span>
+          <h3>Accidental rollover</h3>
+          <p>
+            Win a point, then accidentally roll the ball across the net's plane
+            to the other team? You lose that point, and they serve.
+          </p>
+        </div>
+        <div class="house-rule">
+          <span class="rule-label">House rule 02</span>
+          <h3>Jump serve gamble</h3>
+          <p>
+            Jump serves are welcome. Miss one into the net or out of bounds, and
+            your team gets <strong>−1 point.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section" aria-labelledby="prizes-heading">
+      <div class="section-heading">
+        <Icon name="trophy" size={21} />
+        <h2 id="prizes-heading">Up for grabs</h2>
+      </div>
+      <div class="info-card prize-list">
+        <div>
+          <span class="prize-icon">
+            <Icon name="trophy" size={22} />
+          </span>
+          <div>
+            <h3>Bracket champions</h3>
+            <p>First place in both the upper & lower brackets.</p>
+          </div>
+        </div>
+        <div>
+          <span class="prize-icon">
+            <Icon name="ghost" size={22} />
+          </span>
+          <div>
+            <h3>Best costume</h3>
+            <p>
+              Individual or duo, decided by vote. Group costumes encouraged!
+            </p>
+          </div>
+        </div>
+        <div>
+          <span class="prize-icon">
+            <Icon name="sparkles" size={22} />
+          </span>
+          <div>
+            <h3>Two mystery awards</h3>
+            <p>
+              Individual / duo votes. Categories revealed on tournament day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
