@@ -115,39 +115,39 @@ const teams: Team[] = [
 // round; times and the final round count are not decided yet.
 const draftRounds = [
   [
-    ['James Justin Leeam Matthew', 'Barney Fayaz Jeff Rachel'],
-    ['Bob Chase Christi Karl', 'Connor Eugene Johanan Kasey'],
-    ['Dhruvit Jack Nathan Saketh', 'Alan Ellie Ethan Jasper'],
+    ['Ellie Jasper Justin Leeam', 'Chase Christi Karl Rachel'],
+    ['Barney Bob Fayaz Jeff', 'Dhruvit Eugene Jack Johanan'],
+    ['Connor Kasey Nathan Saketh', 'Alan Ethan James Matthew'],
   ],
   [
-    ['Alan Ellie Justin Matthew', 'Barney Bob Chase Fayaz'],
-    ['Christi Jeff Karl Rachel', 'Connor Dhruvit Jack Nathan'],
-    ['Eugene Johanan Kasey Saketh', 'Ethan James Jasper Leeam'],
+    ['Alan Ellie Ethan Leeam', 'Bob Jeff Karl Rachel'],
+    ['Barney Chase Christi Fayaz', 'Connor Eugene Johanan Nathan'],
+    ['Dhruvit Jack Kasey Saketh', 'James Jasper Justin Matthew'],
   ],
   [
-    ['Ellie Ethan Justin Leeam', 'Bob Christi Karl Rachel'],
-    ['Barney Chase Fayaz Jeff', 'Jack Kasey Nathan Saketh'],
-    ['Connor Dhruvit Eugene Johanan', 'Alan James Jasper Matthew'],
+    ['Ethan James Jasper Matthew', 'Chase Fayaz Karl Rachel'],
+    ['Barney Bob Christi Jeff', 'Jack Johanan Kasey Nathan'],
+    ['Connor Dhruvit Eugene Saketh', 'Alan Ellie Justin Leeam'],
   ],
   [
-    ['Alan Ellie Jasper Leeam', 'Chase Christi Fayaz Jeff'],
-    ['Barney Bob Karl Rachel', 'Eugene Jack Johanan Nathan'],
-    ['Connor Dhruvit Kasey Saketh', 'Ethan James Justin Matthew'],
+    ['Alan Ellie James Jasper', 'Barney Bob Chase Karl'],
+    ['Christi Fayaz Jeff Rachel', 'Connor Dhruvit Jack Nathan'],
+    ['Eugene Johanan Kasey Saketh', 'Ethan Justin Leeam Matthew'],
   ],
   [
-    ['Alan Ethan Leeam Matthew', 'Chase Fayaz Karl Rachel'],
-    ['Barney Bob Christi Jeff', 'Dhruvit Eugene Kasey Nathan'],
-    ['Connor Jack Johanan Saketh', 'Ellie James Jasper Justin'],
+    ['Alan Ellie Justin Matthew', 'Barney Bob Christi Rachel'],
+    ['Chase Fayaz Jeff Karl', 'Connor Dhruvit Johanan Kasey'],
+    ['Eugene Jack Nathan Saketh', 'Ethan James Jasper Leeam'],
   ],
   [
-    ['Alan Jasper Justin Leeam', 'Barney Chase Christi Rachel'],
-    ['Bob Fayaz Jeff Karl', 'Connor Eugene Nathan Saketh'],
-    ['Dhruvit Jack Johanan Kasey', 'Ellie Ethan James Matthew'],
+    ['Alan Ethan Jasper Justin', 'Bob Christi Fayaz Karl'],
+    ['Barney Chase Jeff Rachel', 'Connor Eugene Jack Kasey'],
+    ['Dhruvit Johanan Nathan Saketh', 'Ellie James Leeam Matthew'],
   ],
   [
-    ['Alan Ellie James Leeam', 'Bob Chase Jeff Rachel'],
-    ['Barney Christi Fayaz Karl', 'Connor Johanan Kasey Nathan'],
-    ['Dhruvit Eugene Jack Saketh', 'Ethan Jasper Justin Matthew'],
+    ['Ellie Ethan James Justin', 'Barney Christi Jeff Karl'],
+    ['Bob Chase Fayaz Rachel', 'Connor Jack Johanan Saketh'],
+    ['Dhruvit Eugene Kasey Nathan', 'Alan Jasper Leeam Matthew'],
   ],
 ];
 
