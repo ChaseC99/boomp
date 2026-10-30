@@ -71,7 +71,15 @@ export default function Schedule({ teams, matches }: TournamentData) {
               {event.time} · See you at the park!
             </h2>
             <p>
-              {event.shortDate} · {event.location}
+              {event.shortDate} ·{' '}
+              <a
+                className="location-link"
+                href={event.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {event.location}
+              </a>
             </p>
           </div>
         </aside>
@@ -252,7 +260,15 @@ export default function Schedule({ teams, matches }: TournamentData) {
             {event.time} · See you at the park!
           </h2>
           <p>
-            {event.shortDate} · {event.location}
+            {event.shortDate} ·{' '}
+            <a
+              className="location-link"
+              href={event.locationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {event.location}
+            </a>
           </p>
         </div>
       </aside>

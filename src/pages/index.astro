@@ -15,20 +15,26 @@ const details = [
     icon: 'clock',
     label: 'Time',
     value: event.time,
-    note: 'Match times to be confirmed',
+    note: 'Games begin at 1pm',
   },
   {
     icon: 'pin',
     label: 'Location',
     value: event.location,
+    href: event.locationUrl,
   },
   {
     icon: 'ball',
     label: 'Volleyball',
     value: event.format,
-    note: '3 teams of 8 · 24 players',
+    note: 'Groups of 4 shuffle each round. Earn points for your team.',
   },
-  { icon: 'ghost', label: 'Dress code', value: 'Costumes encouraged' },
+  {
+    icon: 'ghost',
+    label: 'Dress code',
+    value: 'Dress to impress — bring your spookiest fit',
+    note: 'Scare the other team off the court',
+  },
 ] as const;
 ---
 
@@ -53,34 +59,47 @@ const details = [
               <span>{item.label}</span>
             </dt>
             <dd>
-              <span>{item.value}</span>
+              {'href' in item ? (
+                <a
+                  class="location-link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.value}
+                </a>
+              ) : (
+                <span>{item.value}</span>
+              )}
               {'note' in item && <small>{item.note}</small>}
             </dd>
           </div>
         ))}
       </dl>
     </section>
-    <section class="weather-card" aria-labelledby="weather-heading">
+    <section class="weather-card" aria-labelledby="park-heading">
       <div class="weather-top">
         <div>
-          <h2 id="weather-heading">Plan for the park</h2>
-          <p>Volleyball, costumes & cozy layers.</p>
+          <h2 id="park-heading">Plan for the park</h2>
+          <p>Check the forecast before heading out.</p>
         </div>
         <Icon name="cloud" size={44} />
       </div>
-      <p class="weather-tip">
-        Bring a warm layer for the sidelines and check the forecast before
-        heading out on Sunday.
-      </p>
+      <h3 class="packing-heading">What to bring</h3>
+      <ul class="packing-list">
+        {[
+          'Costume & layers',
+          'Water & snacks',
+          'Sunscreen & sunglasses',
+          'Picnic blanket',
+        ].map((item) => (
+          <li>
+            <Icon name="check" size={16} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </section>
-
-    <aside class="demo-notice event-placeholder" aria-label="Planning note">
-      <Icon name="info" size={17} />
-      <p>
-        Four-player groups and match times are still being planned. Rules and
-        prizes below remain placeholders from the original event.
-      </p>
-    </aside>
 
     <section class="info-section" aria-labelledby="format-heading">
       <div class="section-heading">
@@ -93,11 +112,8 @@ const details = [
             01
           </span>
           <div>
-            <h3>Three teams of eight</h3>
-            <p>
-              There are 24 players across Team 1, Team 2, and Team 3. Find your
-              team in the lineup below.
-            </p>
+            <h3>Join your team</h3>
+            <p>24 players will be divided into 3 teams.</p>
           </div>
         </li>
         <li>
@@ -105,10 +121,10 @@ const details = [
             02
           </span>
           <div>
-            <h3>Split into groups of four</h3>
+            <h3>Shuffle into groups</h3>
             <p>
-              Each eight-player team splits into two groups of four for 4v4
-              games. The four-player groups will be assigned later.
+              Every round, your team splits into two new groups of 4, so you'll
+              play with different people throughout the day.
             </p>
           </div>
         </li>
@@ -117,19 +133,14 @@ const details = [
             03
           </span>
           <div>
-            <h3>Three courts at a time</h3>
+            <h3>Play 4v4</h3>
             <p>
-              Three 4v4 games can run at once, with room for all 24 players to
-              play at the same time. Matchups and times are coming soon.
+              Groups face off across 3 courts. Every win earns points for your
+              whole team.
             </p>
           </div>
         </li>
       </ol>
-      <p class="section-note">
-        {teams.length} teams ·{' '}
-        {teams.reduce((count, team) => count + team.players.length, 0)} players
-        · 3 courts
-      </p>
     </section>
 
     <section class="info-section" aria-labelledby="teams-heading">
@@ -158,63 +169,6 @@ const details = [
       </ol>
     </section>
 
-    <section class="info-section" aria-labelledby="packing-heading">
-      <div class="section-heading">
-        <Icon name="bag" size={21} />
-        <h2 id="packing-heading">Pack for the day</h2>
-      </div>
-      <div class="info-card packing-card">
-        <ul class="packing-list">
-          {[
-            'Costume & layers',
-            'Water & snacks',
-            'Sunscreen & sunglasses',
-            'Chair & picnic blanket',
-            'Volleyballs',
-            'Canopy, if you have one',
-          ].map((item) => (
-            <li>
-              <Icon name="check" size={16} />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="card-footer">
-          Let's make a mega canopy! Net owners: the organizer will coordinate
-          with you directly.
-        </p>
-      </div>
-    </section>
-
-    <section class="info-section" aria-labelledby="rules-heading">
-      <div class="section-heading">
-        <Icon name="info" size={21} />
-        <h2 id="rules-heading">Court etiquette</h2>
-      </div>
-      <p>
-        Standard outdoor rules. Call your own open hand receives and doubles
-        honestly, stay out of neighboring courts, and play safe.
-      </p>
-      <div class="house-rules">
-        <div class="house-rule">
-          <span class="rule-label">House rule 01</span>
-          <h3>Accidental rollover</h3>
-          <p>
-            Win a point, then accidentally roll the ball across the net's plane
-            to the other team? You lose that point, and they serve.
-          </p>
-        </div>
-        <div class="house-rule">
-          <span class="rule-label">House rule 02</span>
-          <h3>Jump serve gamble</h3>
-          <p>
-            Jump serves are welcome. Miss one into the net or out of bounds, and
-            your team gets <strong>−1 point.</strong>
-          </p>
-        </div>
-      </div>
-    </section>
-
     <section class="info-section" aria-labelledby="prizes-heading">
       <div class="section-heading">
         <Icon name="trophy" size={21} />
@@ -226,8 +180,8 @@ const details = [
             <Icon name="trophy" size={22} />
           </span>
           <div>
-            <h3>Bracket champions</h3>
-            <p>First place in both the upper & lower brackets.</p>
+            <h3>Winning team</h3>
+            <p>Best team wins eternal ghoul-ory. Also a mystery prize.</p>
           </div>
         </div>
         <div>
@@ -236,20 +190,7 @@ const details = [
           </span>
           <div>
             <h3>Best costume</h3>
-            <p>
-              Individual or duo, decided by vote. Group costumes encouraged!
-            </p>
-          </div>
-        </div>
-        <div>
-          <span class="prize-icon">
-            <Icon name="sparkles" size={22} />
-          </span>
-          <div>
-            <h3>Two mystery awards</h3>
-            <p>
-              Individual / duo votes. Categories revealed on tournament day.
-            </p>
+            <p>Individual or group. Go big, go spooky, go home with a prize.</p>
           </div>
         </div>
       </div>

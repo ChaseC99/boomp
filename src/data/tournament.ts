@@ -43,10 +43,11 @@ export const event = {
   name: 'BOOmp, set, spike! 🏐👻',
   date: 'Sunday, November 1, 2026',
   shortDate: 'Sunday, Nov 1',
-  time: '1 pm',
-  location: 'Golden Gate Park Big Rec',
+  time: '12:30pm',
+  location: 'Golden Gate Park — Big Rec',
+  locationUrl: 'https://maps.app.goo.gl/Z9FG7jFSeixKhUTLA',
   teamCount: 3,
-  format: '4v4 · 3 courts at a time',
+  format: '3 teams · 4v4',
 } as const;
 
 // Each eight-player team will split into groups of four for individual games.

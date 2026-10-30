@@ -1,6 +1,6 @@
 # BOOmp, set, spike! 🏐👻
 
-A mobile-first Halloween grass volleyball site for **Sunday, November 1, 2026 at 1 pm**, at **Golden Gate Park Big Rec**. Built with Astro, React, and TypeScript, with local artwork and a fixed bottom tab bar.
+A mobile-first Halloween grass volleyball site for **Sunday, November 1, 2026 at 12:30pm** (games begin at 1pm), at **[Golden Gate Park — Big Rec](https://maps.app.goo.gl/Z9FG7jFSeixKhUTLA)**. Built with Astro, React, and TypeScript, with local artwork and a fixed bottom tab bar.
 
 Copied from the Bumpkin project into this independent local project. The original project's Git history, remote, build output, and preview screenshots are not included.
 

@@ -102,8 +102,8 @@ export default function Standings({ teams, matches }: TournamentData) {
         <div className="table-footer">
           <Icon name="info" size={16} />
           <p>
-            Ranked by win percentage, then point difference. Official
-            tiebreakers are to be confirmed.
+            Ranked by win percentage, then point difference. Any remaining ties
+            go to the best dressed team.
           </p>
         </div>
       </section>

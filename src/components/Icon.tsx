@@ -138,7 +138,7 @@ const paths: Record<IconName, React.ReactNode> = {
     </>
   ),
   cloud: (
-    <path d="M7 19a5 5 0 1 1 .5-10A7 7 0 0 1 21 12a3.5 3.5 0 0 1-1.5 7H7Z" />
+    <path d="M6 19a5 5 0 1 1 .5-10A7 7 0 0 1 20 12a3.5 3.5 0 0 1-1.5 7H6Z" />
   ),
   bag: (
     <>
