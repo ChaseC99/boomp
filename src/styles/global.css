@@ -979,6 +979,11 @@ abbr {
 .leaderboard-heading h2 {
   font-size: 16px;
 }
+.leaderboard-heading p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
 .table-scroll {
   overflow-x: auto;
 }

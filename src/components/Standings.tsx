@@ -7,17 +7,11 @@ export default function Standings({ teams, matches }: TournamentData) {
   const standings = calculateStandings(teams, matches);
   return (
     <>
-      <aside className="demo-notice" aria-label="Standings note">
-        <Icon name="info" size={17} />
-        <p>
-          Three teams of eight. No games have been recorded yet. Select a team
-          below to see all eight players.
-        </p>
-      </aside>
       <section className="leaderboard">
         <div className="leaderboard-heading">
           <div>
             <h2>Team standings</h2>
+            <p>Select a team below to see all eight players.</p>
           </div>
         </div>
         <div className="table-scroll">
