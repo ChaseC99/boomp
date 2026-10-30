@@ -474,18 +474,26 @@ abbr {
 }
 .roster-card {
   padding: 18px;
+  background: linear-gradient(
+    to top,
+    var(--team-tint, var(--surface)),
+    var(--surface) 120px
+  );
   border-top: 3px solid var(--team-ink, var(--line));
 }
 /* Team colours echo the badge palette, kept light so names stay the focus. */
 .roster-card.orange {
+  --team-tint: #fcf3eb;
   --team-ink: #a45c30;
   --team-line: #f0dccb;
 }
 .roster-card.purple {
+  --team-tint: #f7f3fa;
   --team-ink: #7e658f;
   --team-line: #e5dcec;
 }
 .roster-card.green {
+  --team-tint: #f4f7ef;
   --team-ink: #667b50;
   --team-line: #dde6d0;
 }
