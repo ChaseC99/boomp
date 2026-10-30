@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import type { Match, Team, TournamentData } from '../data/tournament';
 import { event } from '../data/tournament';
 import Icon from './Icon';
@@ -46,10 +46,13 @@ function CourtSide({
         <h3>{team.name}</h3>
         <p>
           {ordered.map((name, index) => (
-            <span key={name}>
-              {index > 0 && ' · '}
-              <span className={name === me ? 'me' : undefined}>{name}</span>
-            </span>
+            // Each name keeps its trailing dot so a line never starts with one.
+            <Fragment key={name}>
+              <span className="player">
+                <span className={name === me ? 'me' : undefined}>{name}</span>
+                {index < ordered.length - 1 && ' ·'}
+              </span>{' '}
+            </Fragment>
           ))}
         </p>
       </div>
@@ -70,23 +73,8 @@ export default function Schedule({ teams, matches }: TournamentData) {
   const [round, setRound] = useState(rounds[0] ?? 1);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('me') ?? '';
-    if (teams.some((team) => team.players.includes(name))) setMe(name);
-    const picked = Number(params.get('round'));
-    if (rounds.includes(picked)) setRound(picked);
-    setReady(true);
-  }, [teams]);
-
-  useEffect(() => {
-    if (!ready) return;
-    const url = new URL(window.location.href);
-    if (me) url.searchParams.set('me', me);
-    else url.searchParams.delete('me');
-    url.searchParams.set('round', String(round));
-    window.history.replaceState(null, '', url);
-  }, [me, round, ready]);
+  // The name picker only works once the page's script has loaded.
+  useEffect(() => setReady(true), []);
 
   if (matches.length === 0) {
     return (
@@ -121,10 +109,7 @@ export default function Schedule({ teams, matches }: TournamentData) {
 
   return (
     <>
-      <section
-        className={`info-card find-court ${myTeam?.color ?? ''}`}
-        aria-labelledby="find-court"
-      >
+      <section className="info-card find-court" aria-labelledby="find-court">
         <label id="find-court" htmlFor="me-select">
           Find your court
         </label>
@@ -148,26 +133,10 @@ export default function Schedule({ teams, matches }: TournamentData) {
           </select>
           <Icon name="chevron" size={17} />
         </div>
-        {me && (
-          <ol className="my-courts" aria-label={`${me}'s courts by round`}>
-            {myCourts.map(({ round: number, match }) => (
-              <li key={number}>
-                <button
-                  className={number === round ? 'selected' : ''}
-                  aria-pressed={number === round}
-                  onClick={() => setRound(number)}
-                >
-                  <span className="my-round">Round {number}</span>
-                  <strong>{match ? `Court ${match.court}` : '–'}</strong>
-                </button>
-              </li>
-            ))}
-          </ol>
-        )}
       </section>
 
       <div className="round-picker" role="tablist" aria-label="Rounds">
-        {rounds.map((number) => (
+        {myCourts.map(({ round: number, match }) => (
           <button
             key={number}
             role="tab"
@@ -175,7 +144,10 @@ export default function Schedule({ teams, matches }: TournamentData) {
             className={number === round ? 'selected' : ''}
             onClick={() => setRound(number)}
           >
-            Round {number}
+            <span>Round {number}</span>
+            {me && match && (
+              <span className="pill-court">Court {match.court}</span>
+            )}
           </button>
         ))}
       </div>
