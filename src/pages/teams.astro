@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import teamsIllustration from '../assets/teams.png';
 import TeamBadge from '../components/TeamBadge';
 import { getTournamentData } from '../data/tournament';
 const { teams } = await getTournamentData();
@@ -16,11 +18,14 @@ const { teams } = await getTournamentData();
           players
         </p>
       </div>
-      <img
-        src="/images/halloween-volleyball.png"
+      <Image
+        src={teamsIllustration}
         alt=""
-        width="1280"
-        height="1280"
+        width={134}
+        height={134}
+        widths={[134, 268, 402]}
+        sizes="(min-width: 600px) 134px, 112px"
+        loading="eager"
       />
     </header>
     <ol class="team-lineup">
