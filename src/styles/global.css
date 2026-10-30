@@ -484,24 +484,21 @@ abbr {
 /* Team colours echo the badge palette, kept light so names stay the focus. */
 .roster-card.orange,
 .court-side.orange,
-.court-card.orange,
-.find-court.orange {
+.court-card.orange {
   --team-tint: #fcf3eb;
   --team-ink: #a45c30;
   --team-line: #f0dccb;
 }
 .roster-card.purple,
 .court-side.purple,
-.court-card.purple,
-.find-court.purple {
+.court-card.purple {
   --team-tint: #f7f3fa;
   --team-ink: #7e658f;
   --team-line: #e5dcec;
 }
 .roster-card.green,
 .court-side.green,
-.court-card.green,
-.find-court.green {
+.court-card.green {
   --team-tint: #f4f7ef;
   --team-ink: #667b50;
   --team-line: #dde6d0;
@@ -987,40 +984,6 @@ abbr {
   font-size: 14px;
   font-weight: 650;
 }
-.my-courts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
-  gap: 8px;
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.my-courts button {
-  width: 100%;
-  display: grid;
-  gap: 2px;
-  padding: 8px 4px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-  text-align: center;
-}
-.my-courts button.selected {
-  border-color: var(--team-ink, var(--orange));
-  background: var(--team-tint, #fff3ea);
-}
-.my-round {
-  font-size: 11px;
-  color: var(--muted);
-}
-.my-courts strong {
-  font-size: 14px;
-  font-weight: 650;
-  color: var(--muted);
-}
-.my-courts button.selected strong {
-  color: var(--ink);
-}
 .round-picker {
   display: flex;
   gap: 8px;
@@ -1033,15 +996,28 @@ abbr {
   display: none;
 }
 .round-picker button {
+  display: grid;
+  justify-items: center;
+  align-content: center;
   flex: 0 0 auto;
   min-height: 40px;
-  padding: 0 16px;
+  line-height: 1.25;
+  padding: 6px 16px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
   font-size: 14px;
   font-weight: 600;
+}
+.pill-court {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.round-picker button.selected .pill-court {
+  color: var(--ink);
+  font-weight: 650;
 }
 .round-picker button.selected {
   background: #e9e6df;
