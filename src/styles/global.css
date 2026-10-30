@@ -1115,6 +1115,9 @@ abbr {
   font-size: 14px;
   line-height: 1.5;
 }
+.court-side .player {
+  white-space: nowrap;
+}
 .court-side .me {
   padding: 0 4px;
   border-radius: 4px;
@@ -1141,6 +1144,11 @@ abbr {
 @media (min-width: 600px) {
   .court-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  /* Both team sections stretch, so side-by-side cards line up. */
+  .court-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto 1fr;
   }
   .round-picker {
     margin-inline: 0;

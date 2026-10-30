@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import type { Match, Team, TournamentData } from '../data/tournament';
 import { event } from '../data/tournament';
 import Icon from './Icon';
@@ -46,10 +46,13 @@ function CourtSide({
         <h3>{team.name}</h3>
         <p>
           {ordered.map((name, index) => (
-            <span key={name}>
-              {index > 0 && ' · '}
-              <span className={name === me ? 'me' : undefined}>{name}</span>
-            </span>
+            // Each name keeps its trailing dot so a line never starts with one.
+            <Fragment key={name}>
+              <span className="player">
+                <span className={name === me ? 'me' : undefined}>{name}</span>
+                {index < ordered.length - 1 && ' ·'}
+              </span>{' '}
+            </Fragment>
           ))}
         </p>
       </div>
