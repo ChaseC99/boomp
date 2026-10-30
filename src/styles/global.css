@@ -260,6 +260,11 @@ abbr {
   line-height: 1.4;
   font-weight: 550;
 }
+.location-link {
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+}
 .event-row small {
   display: block;
   margin-top: 5px;

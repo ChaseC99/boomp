@@ -21,6 +21,7 @@ const details = [
     icon: 'pin',
     label: 'Location',
     value: event.location,
+    href: event.locationUrl,
   },
   {
     icon: 'ball',
@@ -53,7 +54,18 @@ const details = [
               <span>{item.label}</span>
             </dt>
             <dd>
-              <span>{item.value}</span>
+              {'href' in item ? (
+                <a
+                  class="location-link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.value}
+                </a>
+              ) : (
+                <span>{item.value}</span>
+              )}
               {'note' in item && <small>{item.note}</small>}
             </dd>
           </div>
