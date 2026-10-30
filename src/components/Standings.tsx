@@ -87,7 +87,9 @@ export default function Standings({ teams, matches }: TournamentData) {
         </div>
         <div className="table-footer">
           <Icon name="info" size={16} />
-          <p>If it ends in a tie, the best dressed team wins.</p>
+          <p>
+            Ties will be broken by the best dressed team. Dress accordingly.
+          </p>
         </div>
       </section>
     </>
