@@ -14,7 +14,7 @@ export default function Standings({ teams, matches }: TournamentData) {
         <div className="leaderboard-heading">
           <div>
             <h2>Team standings</h2>
-            <p>Select a team below to see all eight players.</p>
+            <p>Select a team below to see all players.</p>
           </div>
         </div>
         <div className="table-scroll">
@@ -36,11 +36,8 @@ export default function Standings({ teams, matches }: TournamentData) {
                 <th scope="col" className="stat-cell">
                   <abbr title="Losses">L</abbr>
                 </th>
-                <th scope="col" className="stat-cell">
+                <th scope="col" className="percent-cell">
                   <abbr title="Win percentage">W%</abbr>
-                </th>
-                <th scope="col" className="difference-cell">
-                  <abbr title="Points scored minus points conceded">+/−</abbr>
                 </th>
               </tr>
             </thead>
@@ -71,19 +68,17 @@ export default function Standings({ teams, matches }: TournamentData) {
                   <td className="played-cell">{row.played}</td>
                   <td className="wins-cell">{row.wins}</td>
                   <td>{row.losses}</td>
-                  <td>{Math.round(row.winPercentage * 100)}%</td>
-                  <td>
-                    <span
-                      className={`point-difference ${row.difference > 0 ? 'positive' : row.difference < 0 ? 'negative' : ''}`}
-                    >
-                      {row.difference > 0 ? '+' : ''}
-                      {row.difference}
-                    </span>
+                  <td className="percent-cell">
+                    {Math.round(row.winPercentage * 100)}%
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="table-footer">
+          <Icon name="info" size={16} />
+          <p>In case of a tie, the best dressed team takes the win.</p>
         </div>
       </section>
     </>

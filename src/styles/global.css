@@ -1190,9 +1190,9 @@ tbody tr:last-child {
 .stat-cell {
   width: 30px;
 }
-.difference-cell {
-  width: 45px;
-  padding-right: 8px;
+.percent-cell {
+  width: 56px;
+  padding-right: 16px;
 }
 .played-cell {
   display: none;
@@ -1244,16 +1244,18 @@ tbody tr:last-child {
 .wins-cell {
   font-weight: 650;
 }
-.point-difference {
+.table-footer {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px;
+  background: #f8f7f2;
+  border-top: 1px solid var(--line);
   font-size: 12px;
-  padding-right: 5px;
   color: var(--muted);
+  line-height: 1.5;
 }
-.point-difference.positive {
-  color: #5d784c;
-}
-.point-difference.negative {
-  color: #a56b4e;
+.table-footer svg {
+  margin-top: 1px;
 }
 .noscript-notice {
   font-size: 13px;
@@ -1325,8 +1327,8 @@ tbody tr:last-child {
   .stat-cell {
     width: 52px;
   }
-  .difference-cell {
-    width: 65px;
+  .percent-cell {
+    width: 72px;
   }
   .played-cell {
     display: table-cell;
@@ -1363,9 +1365,6 @@ tbody tr:last-child {
     background: #f4f4ed;
     color: var(--muted);
     border-radius: 4px;
-  }
-  .point-difference {
-    font-size: 13px;
   }
 }
 @media (max-width: 350px) {
@@ -1405,9 +1404,6 @@ tbody tr:last-child {
   }
   .stat-cell {
     width: 25px;
-  }
-  .difference-cell {
-    width: 37px;
   }
 }
 @media (hover: hover) {

@@ -21,14 +21,7 @@ const data = await getTournamentData();
         loading="eager"
       />
     </header>
-    <Schedule {...data} client:load />
-    {data.matches.length > 0 && (
-      <noscript>
-        <p class="noscript-notice">
-          Enable JavaScript to search teams and filter matches. The match
-          schedule is listed above.
-        </p>
-      </noscript>
-    )}
+    {/* Matchups stay unannounced here; the filled schedule lives at /shhh/. */}
+    <Schedule teams={data.teams} matches={[]} mode={data.mode} client:load />
   </div>
 </Layout>
