@@ -118,6 +118,11 @@ abbr {
   gap: 16px;
   margin-bottom: 20px;
 }
+.page-subtitle {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
 .page-heading img {
   width: 112px;
   height: 112px;
@@ -167,9 +172,9 @@ abbr {
   height: var(--tab-height);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 6px 12px 5px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 6px 8px 5px;
 }
 .tab-link {
   display: flex;
@@ -185,7 +190,7 @@ abbr {
 .tab-icon {
   display: grid;
   place-items: center;
-  width: 62px;
+  width: 56px;
   height: 32px;
   border-radius: 18px;
 }
@@ -469,13 +474,40 @@ abbr {
 }
 .roster-card {
   padding: 18px;
+  background: linear-gradient(
+    to top,
+    var(--team-tint, var(--surface)),
+    var(--surface) 120px
+  );
+  border-top: 3px solid var(--team-ink, var(--line));
+}
+/* Team colours echo the badge palette, kept light so names stay the focus. */
+.roster-card.orange {
+  --team-tint: #fcf3eb;
+  --team-ink: #a45c30;
+  --team-line: #f0dccb;
+}
+.roster-card.purple {
+  --team-tint: #f7f3fa;
+  --team-ink: #7e658f;
+  --team-line: #e5dcec;
+}
+.roster-card.green {
+  --team-tint: #f4f7ef;
+  --team-ink: #667b50;
+  --team-line: #dde6d0;
 }
 .roster-heading {
   display: flex;
   align-items: center;
   gap: 10px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--team-line, var(--line));
+}
+.roster-heading h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--team-ink, inherit);
 }
 .roster-heading p {
   margin-top: 2px;
@@ -896,6 +928,18 @@ abbr {
   width: 30px;
   height: 30px;
 }
+.coming-soon {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fae8dc;
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
 .empty-state h2 {
   font-size: 18px;
   margin-bottom: 8px;
@@ -936,6 +980,11 @@ abbr {
 .leaderboard-heading h2 {
   font-size: 16px;
 }
+.leaderboard-heading p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
 .table-scroll {
   overflow-x: auto;
 }
@@ -966,11 +1015,9 @@ tbody tr {
 tbody tr:last-child {
   border-bottom: 0;
 }
-.rank-cell {
-  width: 32px;
-}
 .team-cell {
   text-align: left;
+  padding-left: 16px;
 }
 .stat-cell {
   width: 30px;
@@ -981,14 +1028,6 @@ tbody tr:last-child {
 }
 .played-cell {
   display: none;
-}
-.rank-number {
-  font-size: 12px;
-  color: #82877a;
-}
-.rank-number.first {
-  color: var(--orange);
-  font-weight: 750;
 }
 .table-team {
   display: flex;
@@ -1128,9 +1167,6 @@ tbody tr:last-child {
   .match-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .rank-cell {
-    width: 48px;
-  }
   .stat-cell {
     width: 52px;
   }
@@ -1173,7 +1209,6 @@ tbody tr:last-child {
     color: var(--muted);
     border-radius: 4px;
   }
-  .rank-number,
   .point-difference {
     font-size: 13px;
   }
@@ -1212,9 +1247,6 @@ tbody tr:last-child {
   }
   .table-team summary {
     font-size: 11px;
-  }
-  .rank-cell {
-    width: 25px;
   }
   .stat-cell {
     width: 25px;

@@ -4,33 +4,26 @@ import Icon from './Icon';
 import TeamBadge from './TeamBadge';
 
 export default function Standings({ teams, matches }: TournamentData) {
-  const standings = calculateStandings(teams, matches);
+  // Teams always appear in their fixed order; the table is not a ranking.
+  const standings = calculateStandings(teams, matches).sort(
+    (a, b) => teams.indexOf(a.team) - teams.indexOf(b.team),
+  );
   return (
     <>
-      <aside className="demo-notice" aria-label="Standings note">
-        <Icon name="info" size={17} />
-        <p>
-          Three teams of eight. No games have been recorded yet. Select a team
-          below to see all eight players.
-        </p>
-      </aside>
       <section className="leaderboard">
         <div className="leaderboard-heading">
           <div>
             <h2>Team standings</h2>
+            <p>Select a team below to see all eight players.</p>
           </div>
         </div>
         <div className="table-scroll">
           <table>
             <caption className="sr-only">
-              Team standings ranked by win percentage, then point difference.
-              Select a team name for its roster.
+              Team standings in team order. Select a team name for its roster.
             </caption>
             <thead>
               <tr>
-                <th scope="col" className="rank-cell">
-                  #
-                </th>
                 <th scope="col" className="team-cell">
                   Team
                 </th>
@@ -54,13 +47,6 @@ export default function Standings({ teams, matches }: TournamentData) {
             <tbody>
               {standings.map((row) => (
                 <tr key={row.team.id}>
-                  <td className="rank-cell">
-                    <span
-                      className={`rank-number ${row.played > 0 && row.rank === 1 ? 'first' : ''}`}
-                    >
-                      {row.played > 0 ? row.rank : '—'}
-                    </span>
-                  </td>
                   <th
                     scope="row"
                     className="team-cell"
@@ -101,10 +87,7 @@ export default function Standings({ teams, matches }: TournamentData) {
         </div>
         <div className="table-footer">
           <Icon name="info" size={16} />
-          <p>
-            Ranked by win percentage, then point difference. Any remaining ties
-            go to the best dressed team.
-          </p>
+          <p>Ties will be broken by the best dressed team.</p>
         </div>
       </section>
     </>

@@ -87,13 +87,10 @@ export default function Schedule({ teams, matches }: TournamentData) {
           <span className="empty-icon">
             <Icon name="ball" size={36} />
           </span>
-          <h2>4v4 across three courts</h2>
-          <p>
-            Three teams of eight will split into groups of four, with three
-            games happening at a time. Four-player groups, matchups, and start
-            times are coming soon.
-          </p>
-          <a className="button" href="/#teams-heading">
+          <span className="coming-soon">Coming soon</span>
+          <h2>The schedule is still brewing</h2>
+          <p>4v4 matchups and court times will be posted here later.</p>
+          <a className="button" href="/teams/">
             See the teams <Icon name="arrow" size={18} />
           </a>
         </section>
