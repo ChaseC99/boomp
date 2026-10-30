@@ -82,27 +82,28 @@ const details = [
         ))}
       </dl>
     </section>
-    <section class="weather-card" aria-labelledby="weather-heading">
+    <section class="weather-card" aria-labelledby="park-heading">
       <div class="weather-top">
         <div>
-          <h2 id="weather-heading">Plan for the park</h2>
-          <p>Volleyball, costumes & cozy layers.</p>
+          <h2 id="park-heading">Plan for the park</h2>
+          <p>Check the forecast before heading out.</p>
         </div>
         <Icon name="cloud" size={44} />
       </div>
-      <p class="weather-tip">
-        Bring a warm layer for the sidelines and check the forecast before
-        heading out on Sunday.
-      </p>
+      <ul class="packing-list">
+        {[
+          'Costume & layers',
+          'Water & snacks',
+          'Sunscreen & sunglasses',
+          'Picnic blanket',
+        ].map((item) => (
+          <li>
+            <Icon name="check" size={16} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </section>
-
-    <aside class="demo-notice event-placeholder" aria-label="Planning note">
-      <Icon name="info" size={17} />
-      <p>
-        Four-player groups and match times are still being planned. Prizes below
-        remain placeholders from the original event.
-      </p>
-    </aside>
 
     <section class="info-section" aria-labelledby="format-heading">
       <div class="section-heading">
@@ -178,28 +179,6 @@ const details = [
           </li>
         ))}
       </ol>
-    </section>
-
-    <section class="info-section" aria-labelledby="packing-heading">
-      <div class="section-heading">
-        <Icon name="bag" size={21} />
-        <h2 id="packing-heading">Pack for the day</h2>
-      </div>
-      <div class="info-card packing-card">
-        <ul class="packing-list">
-          {[
-            'Costume & layers',
-            'Water & snacks',
-            'Sunscreen & sunglasses',
-            'Picnic blanket',
-          ].map((item) => (
-            <li>
-              <Icon name="check" size={16} />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
     </section>
 
     <section class="info-section" aria-labelledby="prizes-heading">
