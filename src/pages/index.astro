@@ -28,7 +28,13 @@ const details = [
     value: event.format,
     note: '3 teams of 8 · 24 players',
   },
-  { icon: 'ghost', label: 'Dress code', value: 'Costumes encouraged' },
+  {
+    icon: 'ghost',
+    label: 'Dress code',
+    value: 'Costumes',
+    struck: 'mandatory',
+    after: 'encouraged',
+  },
 ] as const;
 ---
 
@@ -53,7 +59,13 @@ const details = [
               <span>{item.label}</span>
             </dt>
             <dd>
-              <span>{item.value}</span>
+              {'struck' in item ? (
+                <span>
+                  {item.value} <s>{item.struck}</s> {item.after}
+                </span>
+              ) : (
+                <span>{item.value}</span>
+              )}
               {'note' in item && <small>{item.note}</small>}
             </dd>
           </div>
