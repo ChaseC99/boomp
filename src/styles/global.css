@@ -482,17 +482,26 @@ abbr {
   border-top: 3px solid var(--team-ink, var(--line));
 }
 /* Team colours echo the badge palette, kept light so names stay the focus. */
-.roster-card.orange {
+.roster-card.orange,
+.court-side.orange,
+.court-card.orange,
+.find-court.orange {
   --team-tint: #fcf3eb;
   --team-ink: #a45c30;
   --team-line: #f0dccb;
 }
-.roster-card.purple {
+.roster-card.purple,
+.court-side.purple,
+.court-card.purple,
+.find-court.purple {
   --team-tint: #f7f3fa;
   --team-ink: #7e658f;
   --team-line: #e5dcec;
 }
-.roster-card.green {
+.roster-card.green,
+.court-side.green,
+.court-card.green,
+.find-court.green {
   --team-tint: #f4f7ef;
   --team-ink: #667b50;
   --team-line: #dde6d0;
@@ -965,6 +974,174 @@ abbr {
 }
 .empty-state .button {
   margin-top: 22px;
+}
+
+/* Schedule: find your court, then read one round at a time. */
+.find-court {
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.find-court > label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 650;
+}
+.my-courts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.my-courts button {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  text-align: center;
+}
+.my-courts button.selected {
+  border-color: var(--team-ink, var(--orange));
+  background: var(--team-tint, #fff3ea);
+}
+.my-round {
+  font-size: 11px;
+  color: var(--muted);
+}
+.my-courts strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+.round-picker {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -16px 14px;
+  padding: 2px 16px 4px;
+  scrollbar-width: none;
+}
+.round-picker::-webkit-scrollbar {
+  display: none;
+}
+.round-picker button {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: #5c625a;
+  font-size: 14px;
+  font-weight: 600;
+}
+.round-picker button.selected {
+  background: #e9e6df;
+  border-color: #d8d4ca;
+  color: var(--ink);
+}
+.round-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.court-list {
+  display: grid;
+  gap: 14px;
+}
+.court-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.court-card.mine {
+  border-color: var(--team-ink);
+  box-shadow: 0 0 0 2px var(--team-line);
+}
+.court-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+}
+.court-header strong {
+  font-size: 15px;
+}
+.court-number {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #e9e6df;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+.you-here {
+  margin-left: auto;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--team-ink);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.court-side {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--team-ink);
+  background: var(--team-tint);
+}
+.court-side h3 {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--team-ink);
+}
+.court-side p {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.court-side .me {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--team-ink);
+  color: #fff;
+}
+.court-vs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 16px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.court-vs::before,
+.court-vs::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+@media (min-width: 600px) {
+  .court-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .round-picker {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 
 /* Standings stay readable without sideways scrolling on a phone. */
