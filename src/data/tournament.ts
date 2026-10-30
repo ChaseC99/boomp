@@ -92,7 +92,7 @@ const teams: Team[] = [
     id: 't3',
     name: 'Team 3',
     shortName: 'Team 3',
-    icon: 'bolt',
+    icon: 'hat',
     color: 'green',
     pool: 'A',
     players: [
