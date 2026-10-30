@@ -44,7 +44,8 @@ export const event = {
   date: 'Sunday, November 1, 2026',
   shortDate: 'Sunday, Nov 1',
   time: '1 pm',
-  location: 'Golden Gate Park Big Rec',
+  location: 'Golden Gate Park — Big Rec',
+  locationUrl: 'https://maps.app.goo.gl/Z9FG7jFSeixKhUTLA',
   teamCount: 3,
   format: '4v4 · 3 courts at a time',
 } as const;

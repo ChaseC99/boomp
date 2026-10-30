@@ -271,6 +271,11 @@ abbr {
   line-height: 1.4;
   font-weight: 550;
 }
+.location-link {
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+}
 .event-row small {
   display: block;
   margin-top: 5px;
@@ -357,13 +362,6 @@ abbr {
   gap: 4px;
   font-size: 12px;
 }
-.weather-tip {
-  margin-top: 16px;
-  border-top: 1px solid #dcd9e8;
-  padding-top: 14px;
-  font-size: 13px;
-  line-height: 1.6;
-}
 .weather-card small {
   display: block;
   margin-top: 7px;
@@ -399,7 +397,6 @@ abbr {
   line-height: 1.45;
 }
 .format-steps p,
-.house-rule p,
 .prize-list p,
 .duo-list p {
   margin-top: 5px;
@@ -413,12 +410,12 @@ abbr {
 }
 .packing-list {
   list-style: none;
-  margin: 0;
-  padding: 18px;
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid #dcd9e8;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  color: #5c625a;
+  gap: 12px 16px;
   font-size: 13px;
   line-height: 1.5;
 }
@@ -429,34 +426,7 @@ abbr {
 }
 .packing-list svg {
   margin-top: 2px;
-  color: #82916d;
-}
-.info-section .card-footer {
-  padding: 13px 18px;
-  background: #f4f5ee;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 1.6;
-}
-.house-rules {
-  display: grid;
-  gap: 12px;
-  margin-top: 16px;
-}
-.house-rule {
-  padding: 18px;
-  background: #f7eee5;
-  border: 1px solid #eadbcd;
-  border-radius: 12px;
-}
-.rule-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: #98603c;
+  color: #8d87a8;
 }
 .prize-list {
   padding: 0 18px;
@@ -545,9 +515,6 @@ abbr {
   }
 }
 @media (min-width: 600px) {
-  .house-rules {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .duo-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -575,9 +542,6 @@ abbr {
 .demo-notice p {
   font-size: 12px;
   line-height: 1.5;
-}
-.event-placeholder {
-  margin-top: 18px;
 }
 .schedule-toolbar {
   display: flex;

@@ -20,14 +20,20 @@ const details = [
     icon: 'pin',
     label: 'Location',
     value: event.location,
+    href: event.locationUrl,
   },
   {
     icon: 'ball',
     label: 'Volleyball',
     value: event.format,
-    note: '3 teams of 8 · 24 players',
+    note: '3 teams of 8',
   },
-  { icon: 'ghost', label: 'Dress code', value: 'Costumes encouraged' },
+  {
+    icon: 'ghost',
+    label: 'Dress code',
+    value: 'Dress to impress — bring your spookiest fit',
+    note: 'Scare the other team off the court',
+  },
 ] as const;
 ---
 
@@ -52,34 +58,46 @@ const details = [
               <span>{item.label}</span>
             </dt>
             <dd>
-              <span>{item.value}</span>
+              {'href' in item ? (
+                <a
+                  class="location-link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.value}
+                </a>
+              ) : (
+                <span>{item.value}</span>
+              )}
               {'note' in item && <small>{item.note}</small>}
             </dd>
           </div>
         ))}
       </dl>
     </section>
-    <section class="weather-card" aria-labelledby="weather-heading">
+    <section class="weather-card" aria-labelledby="park-heading">
       <div class="weather-top">
         <div>
-          <h2 id="weather-heading">Plan for the park</h2>
-          <p>Volleyball, costumes & cozy layers.</p>
+          <h2 id="park-heading">Plan for the park</h2>
+          <p>Check the forecast before heading out.</p>
         </div>
         <Icon name="cloud" size={44} />
       </div>
-      <p class="weather-tip">
-        Bring a warm layer for the sidelines and check the forecast before
-        heading out on Sunday.
-      </p>
+      <ul class="packing-list">
+        {[
+          'Costume & layers',
+          'Water & snacks',
+          'Sunscreen & sunglasses',
+          'Picnic blanket',
+        ].map((item) => (
+          <li>
+            <Icon name="check" size={16} />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </section>
-
-    <aside class="demo-notice event-placeholder" aria-label="Planning note">
-      <Icon name="info" size={17} />
-      <p>
-        Four-player groups and match times are still being planned. Rules and
-        prizes below remain placeholders from the original event.
-      </p>
-    </aside>
 
     <section class="info-section" aria-labelledby="format-heading">
       <div class="section-heading">
@@ -133,63 +151,6 @@ const details = [
         {teams.reduce((count, team) => count + team.players.length, 0)} players
         · 3 courts
       </p>
-    </section>
-
-    <section class="info-section" aria-labelledby="packing-heading">
-      <div class="section-heading">
-        <Icon name="bag" size={21} />
-        <h2 id="packing-heading">Pack for the day</h2>
-      </div>
-      <div class="info-card packing-card">
-        <ul class="packing-list">
-          {[
-            'Costume & layers',
-            'Water & snacks',
-            'Sunscreen & sunglasses',
-            'Chair & picnic blanket',
-            'Volleyballs',
-            'Canopy, if you have one',
-          ].map((item) => (
-            <li>
-              <Icon name="check" size={16} />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="card-footer">
-          Let's make a mega canopy! Net owners: the organizer will coordinate
-          with you directly.
-        </p>
-      </div>
-    </section>
-
-    <section class="info-section" aria-labelledby="rules-heading">
-      <div class="section-heading">
-        <Icon name="info" size={21} />
-        <h2 id="rules-heading">Court etiquette</h2>
-      </div>
-      <p>
-        Standard outdoor rules. Call your own open hand receives and doubles
-        honestly, stay out of neighboring courts, and play safe.
-      </p>
-      <div class="house-rules">
-        <div class="house-rule">
-          <span class="rule-label">House rule 01</span>
-          <h3>Accidental rollover</h3>
-          <p>
-            Win a point, then accidentally roll the ball across the net's plane
-            to the other team? You lose that point, and they serve.
-          </p>
-        </div>
-        <div class="house-rule">
-          <span class="rule-label">House rule 02</span>
-          <h3>Jump serve gamble</h3>
-          <p>
-            Jump serves are welcome. Miss one into the net or out of bounds, and
-            your team gets <strong>−1 point.</strong>
-          </p>
-        </div>
-      </div>
     </section>
 
     <section class="info-section" aria-labelledby="prizes-heading">
