@@ -85,10 +85,6 @@ export default function Standings({ teams, matches }: TournamentData) {
             </tbody>
           </table>
         </div>
-        <div className="table-footer">
-          <Icon name="info" size={16} />
-          <p>Ties will be broken by the best dressed team.</p>
-        </div>
       </section>
     </>
   );

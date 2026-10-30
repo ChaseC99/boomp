@@ -1276,19 +1276,6 @@ tbody tr:last-child {
 .point-difference.negative {
   color: #a56b4e;
 }
-.table-footer {
-  display: flex;
-  gap: 8px;
-  padding: 14px 16px;
-  background: #f8f7f2;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.table-footer svg {
-  margin-top: 1px;
-}
 .noscript-notice {
   font-size: 13px;
   line-height: 1.5;
