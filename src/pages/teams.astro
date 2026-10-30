@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TeamBadge from '../components/TeamBadge';
+import { getTournamentData } from '../data/tournament';
+const { teams } = await getTournamentData();
+---
+
+<Layout title="Teams" active="teams">
+  <div class="wrap interior-page">
+    <header class="page-heading">
+      <div>
+        <h1>Teams</h1>
+        <p class="page-subtitle">
+          {teams.length} teams ·{' '}
+          {teams.reduce((count, team) => count + team.players.length, 0)}{' '}
+          players
+        </p>
+      </div>
+      <img
+        src="/images/halloween-volleyball.png"
+        alt=""
+        width="1280"
+        height="1280"
+      />
+    </header>
+    <ol class="team-lineup">
+      {teams.map((team) => (
+        <li class="info-card roster-card">
+          <div class="roster-heading">
+            <TeamBadge team={team} />
+            <div>
+              <h2>{team.name}</h2>
+              <p>{team.players.length} players</p>
+            </div>
+          </div>
+          <ul class="roster-players">
+            {team.players.map((player) => (
+              <li>{player}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Layout>

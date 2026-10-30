@@ -85,7 +85,7 @@ export default function Schedule({ teams, matches }: TournamentData) {
             games happening at a time. Four-player groups, matchups, and start
             times are coming soon.
           </p>
-          <a className="button" href="/#teams-heading">
+          <a className="button" href="/teams/">
             See the teams <Icon name="arrow" size={18} />
           </a>
         </section>

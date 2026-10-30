@@ -118,6 +118,17 @@ abbr {
   gap: 16px;
   margin-bottom: 20px;
 }
+.page-subtitle {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.inline-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+}
 .page-heading img {
   width: 112px;
   height: 112px;
@@ -167,9 +178,9 @@ abbr {
   height: var(--tab-height);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 6px 12px 5px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 6px 8px 5px;
 }
 .tab-link {
   display: flex;
@@ -185,7 +196,7 @@ abbr {
 .tab-icon {
   display: grid;
   place-items: center;
-  width: 62px;
+  width: 56px;
   height: 32px;
   border-radius: 18px;
 }
@@ -505,6 +516,10 @@ abbr {
   gap: 10px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
+}
+.roster-heading h2 {
+  font-size: 15px;
+  font-weight: 600;
 }
 .roster-heading p {
   margin-top: 2px;

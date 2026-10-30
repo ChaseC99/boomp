@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon';
-import TeamBadge from '../components/TeamBadge';
 import { event, getTournamentData } from '../data/tournament';
 const { teams } = await getTournamentData();
 const details = [
@@ -96,7 +95,11 @@ const details = [
             <h3>Three teams of eight</h3>
             <p>
               There are 24 players across Team 1, Team 2, and Team 3. Find your
-              team in the lineup below.
+              team on the{' '}
+              <a class="inline-link" href="/teams/">
+                Teams
+              </a>{' '}
+              tab.
             </p>
           </div>
         </li>
@@ -130,32 +133,6 @@ const details = [
         {teams.reduce((count, team) => count + team.players.length, 0)} players
         · 3 courts
       </p>
-    </section>
-
-    <section class="info-section" aria-labelledby="teams-heading">
-      <div class="section-heading">
-        <Icon name="ghost" size={21} />
-        <h2 id="teams-heading">The team lineup</h2>
-        <span class="section-count">3 teams · 24 players</span>
-      </div>
-      <ol class="team-lineup">
-        {teams.map((team) => (
-          <li class="info-card roster-card">
-            <div class="roster-heading">
-              <TeamBadge team={team} />
-              <div>
-                <h3>{team.name}</h3>
-                <p>{team.players.length} players</p>
-              </div>
-            </div>
-            <ul class="roster-players">
-              {team.players.map((player) => (
-                <li>{player}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ol>
     </section>
 
     <section class="info-section" aria-labelledby="packing-heading">
