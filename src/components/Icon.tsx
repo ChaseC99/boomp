@@ -79,7 +79,11 @@ const paths: Record<IconName, React.ReactNode> = {
         fill="currentColor"
         strokeWidth="1"
       />
-      <path d="M8.6 16.4c1.9 1.8 4.9 1.8 6.8 0" />
+      <path
+        d="M7.6 15.6c.9 2.5 2.5 3.7 4.4 3.7s3.5-1.2 4.4-3.7c-1.3.5-2.6.7-3.7.7v1.1h-1.4v-1.1c-1.1 0-2.4-.2-3.7-.7Z"
+        fill="currentColor"
+        strokeWidth="1"
+      />
     </>
   ),
   moon: <path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z" />,
