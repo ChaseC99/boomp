@@ -1,88 +1,93 @@
 import { useEffect, useState } from 'react';
-import type { Match, TournamentData } from '../data/tournament';
+import type { Match, Team, TournamentData } from '../data/tournament';
 import { event } from '../data/tournament';
-import { filterMatches } from '../lib/tournament';
 import Icon from './Icon';
 import TeamBadge from './TeamBadge';
 
-function RefereeFooter({ assignment }: { assignment: string }) {
+function MeetingBanner() {
   return (
-    <footer className="match-referee">
-      <span className="match-referee-label">
-        <Icon name="whistle" size={16} />
-        Referees
-      </span>
-      <p className="match-referee-names">{assignment}</p>
-    </footer>
+    <aside className="players-meeting" aria-labelledby="event-start-heading">
+      <Icon name="clock" size={22} />
+      <div>
+        <h2 id="event-start-heading">{event.time} · See you at the park!</h2>
+        <p>
+          {event.shortDate} ·{' '}
+          <a
+            className="location-link"
+            href={event.locationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {event.location}
+          </a>
+        </p>
+      </div>
+    </aside>
   );
 }
 
+function CourtSide({
+  team,
+  players,
+  me,
+}: {
+  team: Team;
+  players: string[];
+  me: string;
+}) {
+  return (
+    <div className={`court-side ${team.color}`}>
+      <TeamBadge team={team} />
+      <div>
+        <h3>{team.name}</h3>
+        <p>
+          {players.map((name, index) => (
+            <span key={name}>
+              {index > 0 && ' · '}
+              <span className={name === me ? 'me' : undefined}>{name}</span>
+            </span>
+          ))}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const playersIn = (match: Match) => [
+  ...(match.homePlayers ?? []),
+  ...(match.awayPlayers ?? []),
+];
+
 export default function Schedule({ teams, matches }: TournamentData) {
-  const [query, setQuery] = useState('');
-  const [teamId, setTeamId] = useState('');
-  const [stage, setStage] = useState<'all' | 'pool' | 'playoff'>('all');
+  const rounds = [...new Set(matches.map((match) => match.round))].sort(
+    (a, b) => a - b,
+  );
+  const [me, setMe] = useState('');
+  const [round, setRound] = useState(rounds[0] ?? 1);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setQuery(params.get('q') ?? '');
-    const candidate = params.get('team') ?? '';
-    setTeamId(teams.some((team) => team.id === candidate) ? candidate : '');
-    const phase = params.get('stage');
-    if (phase === 'pool' || phase === 'playoff') setStage(phase);
+    const name = params.get('me') ?? '';
+    if (teams.some((team) => team.players.includes(name))) setMe(name);
+    const picked = Number(params.get('round'));
+    if (rounds.includes(picked)) setRound(picked);
     setReady(true);
   }, [teams]);
 
   useEffect(() => {
     if (!ready) return;
     const url = new URL(window.location.href);
-    for (const [key, value] of [
-      ['q', query],
-      ['team', teamId],
-      ['stage', stage === 'all' ? '' : stage],
-    ]) {
-      if (value) url.searchParams.set(key, value);
-      else url.searchParams.delete(key);
-    }
+    if (me) url.searchParams.set('me', me);
+    else url.searchParams.delete('me');
+    url.searchParams.set('round', String(round));
     window.history.replaceState(null, '', url);
-  }, [query, teamId, stage, ready]);
-
-  const filtered = filterMatches(matches, teams, query, teamId, stage);
-  const matchCount = filtered.length;
-  const rounds = [...new Set(filtered.map((match) => match.round))];
-  const hasFilters = Boolean(query || teamId || stage !== 'all');
-  const clear = () => {
-    setQuery('');
-    setTeamId('');
-    setStage('all');
-  };
-  const selected = teams.find((team) => team.id === teamId);
+  }, [me, round, ready]);
 
   if (matches.length === 0) {
     return (
       <>
-        <aside
-          className="players-meeting"
-          aria-labelledby="event-start-heading"
-        >
-          <Icon name="clock" size={22} />
-          <div>
-            <h2 id="event-start-heading">
-              {event.time} · See you at the park!
-            </h2>
-            <p>
-              {event.shortDate} ·{' '}
-              <a
-                className="location-link"
-                href={event.locationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {event.location}
-              </a>
-            </p>
-          </div>
-        </aside>
+        <MeetingBanner />
         <section className="empty-state">
           <span className="empty-icon">
             <Icon name="ball" size={36} />
@@ -98,205 +103,116 @@ export default function Schedule({ teams, matches }: TournamentData) {
     );
   }
 
-  const renderMatch = (match: Match) => {
-    const home = teams.find((team) => team.id === match.homeId)!;
-    const away = teams.find((team) => team.id === match.awayId)!;
-    return (
-      <article
-        className="match-card"
-        key={match.id}
-        aria-label={`${home.name} versus ${away.name}, time TBD, court ${match.court}`}
-      >
-        <div className="match-topline">
-          <span>
-            <span className="court-dot" />
-            Court {match.court}
-          </span>
-          <span className={`match-status ${match.status}`}>
-            {match.status === 'final' ? (
-              <>
-                <Icon name="check" size={12} /> Final
-              </>
-            ) : (
-              'Upcoming'
-            )}
-          </span>
-        </div>
-        {[home, away].map((team, index) => (
-          <div
-            className={`match-team ${match.score && match.score[index] > match.score[1 - index] ? 'winner' : ''}`}
-            key={team.id}
-          >
-            <TeamBadge team={team} />
-            <div>
-              <h3>{team.name}</h3>
-              <p>
-                {team.players.map((name) => name.split(' ')[0]).join(' · ')}
-              </p>
-            </div>
-            <span className="match-score">
-              {match.score ? (
-                match.score[index]
-              ) : (
-                <span className="score-dash">—</span>
-              )}
-            </span>
-          </div>
-        ))}
-        {match.refereeId && (
-          <RefereeFooter
-            assignment={
-              teams
-                .find((team) => team.id === match.refereeId)
-                ?.players.join(' · ') ?? match.refereeId
-            }
-          />
-        )}
-      </article>
-    );
-  };
+  const teamById = (id: string) => teams.find((team) => team.id === id);
+  const myTeam = teams.find((team) => team.players.includes(me));
+  const myCourts = rounds.map((number) => ({
+    round: number,
+    match: matches.find(
+      (match) => match.round === number && playersIn(match).includes(me),
+    ),
+  }));
+  const games = matches
+    .filter((match) => match.round === round)
+    .sort((a, b) => a.court - b.court);
 
   return (
     <>
-      <aside className="demo-notice" aria-label="Schedule note">
-        <Icon name="info" size={17} />
-        <p>
-          Match times and four-player court assignments will be confirmed here.
-        </p>
-      </aside>
-      <div className="schedule-toolbar">
-        <div className="search-field">
-          <Icon name="search" size={20} />
-          <label className="sr-only" htmlFor="schedule-search">
-            Search by team or player name
-          </label>
-          <input
-            id="schedule-search"
-            type="search"
-            disabled={!ready}
-            placeholder="Team or player name"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-          {query && (
-            <button
-              className="icon-button"
-              aria-label="Clear search"
-              onClick={() => setQuery('')}
-            >
-              <Icon name="close" size={17} />
-            </button>
-          )}
-        </div>
+      <section
+        className={`info-card find-court ${myTeam?.color ?? ''}`}
+        aria-labelledby="find-court"
+      >
+        <label id="find-court" htmlFor="me-select">
+          Find your court
+        </label>
         <div className="select-field">
-          <label className="sr-only" htmlFor="team-filter">
-            Filter by team
-          </label>
           <select
-            id="team-filter"
+            id="me-select"
             disabled={!ready}
-            value={teamId}
-            onChange={(event) => setTeamId(event.target.value)}
+            value={me}
+            onChange={(event) => setMe(event.target.value)}
           >
-            <option value="">All teams</option>
+            <option value="">Pick your name</option>
             {teams.map((team) => (
-              <option key={team.id} value={team.id}>
-                {team.name}
-              </option>
+              <optgroup key={team.id} label={team.name}>
+                {team.players.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
           <Icon name="chevron" size={17} />
         </div>
-      </div>
-      <div className="schedule-tabs-row">
-        <div className="segmented" aria-label="Tournament stage">
-          {(
-            [
-              ['all', 'All matches'],
-              ['pool', 'Pool play'],
-              ['playoff', 'Playoffs'],
-            ] as const
-          ).map(([value, label]) => (
-            <button
-              key={value}
-              disabled={!ready}
-              aria-pressed={stage === value}
-              className={stage === value ? 'selected' : ''}
-              onClick={() => setStage(value)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <p className="results-count" role="status">
-          {matchCount} {matchCount === 1 ? 'match' : 'matches'}
-          {hasFilters && (
-            <button onClick={clear}>
-              Reset filters <Icon name="close" size={12} />
-            </button>
-          )}
-        </p>
-      </div>
-      {selected && (
-        <div className="selected-team">
-          <TeamBadge team={selected} />
-          <div>
-            <strong>{selected.name}</strong>
-            <p>{selected.players.join(' · ')}</p>
-          </div>
-          <span>POOL PLAY</span>
-        </div>
-      )}
-      <aside
-        className="players-meeting"
-        aria-labelledby="players-meeting-heading"
-      >
-        <Icon name="clock" size={22} />
-        <div>
-          <h2 id="players-meeting-heading">
-            {event.time} · See you at the park!
-          </h2>
-          <p>
-            {event.shortDate} ·{' '}
-            <a
-              className="location-link"
-              href={event.locationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {event.location}
-            </a>
-          </p>
-        </div>
-      </aside>
-      {filtered.length === 0 ? (
-        <div className="empty-state">
-          <span className="empty-icon">
-            <Icon name="ghost" size={36} />
-          </span>
-          <h2>No matches found</h2>
-          <p>Try another team or player name, or clear your filters.</p>
-          <button className="button secondary" onClick={clear}>
-            Clear filters <Icon name="arrow" size={18} />
+        {me && (
+          <ol className="my-courts" aria-label={`${me}'s courts by round`}>
+            {myCourts.map(({ round: number, match }) => (
+              <li key={number}>
+                <button
+                  className={number === round ? 'selected' : ''}
+                  aria-pressed={number === round}
+                  onClick={() => setRound(number)}
+                >
+                  <span className="my-round">Round {number}</span>
+                  <strong>{match ? `Court ${match.court}` : '–'}</strong>
+                </button>
+              </li>
+            ))}
+          </ol>
+        )}
+      </section>
+
+      <div className="round-picker" role="tablist" aria-label="Rounds">
+        {rounds.map((number) => (
+          <button
+            key={number}
+            role="tab"
+            aria-selected={number === round}
+            className={number === round ? 'selected' : ''}
+            onClick={() => setRound(number)}
+          >
+            Round {number}
           </button>
-        </div>
-      ) : (
-        <div className="rounds">
-          {rounds.map((round) => {
-            const games = filtered.filter((match) => match.round === round);
-            return (
-              <section className="round" key={round}>
-                <div className="round-heading">
-                  <h2>Round {round}</h2>
-                  <span>Time TBD</span>
-                  <div />
-                </div>
-                <div className="match-grid">{games.map(renderMatch)}</div>
-              </section>
-            );
-          })}
-        </div>
-      )}
+        ))}
+      </div>
+
+      <h2 className="round-title">Round {round}</h2>
+      <div className="court-list">
+        {games.map((match) => {
+          const home = teamById(match.homeId);
+          const away = teamById(match.awayId);
+          if (!home || !away) return null;
+          const mine = Boolean(me) && playersIn(match).includes(me);
+          return (
+            <article
+              className={`court-card ${mine ? `mine ${myTeam?.color}` : ''}`}
+              key={match.id}
+              aria-label={`Court ${match.court}: ${home.name} versus ${away.name}`}
+            >
+              <header className="court-header">
+                <span className="court-number" aria-hidden="true">
+                  {match.court}
+                </span>
+                <strong>Court {match.court}</strong>
+                {mine && <span className="you-here">You're here</span>}
+              </header>
+              <CourtSide
+                team={home}
+                players={match.homePlayers ?? home.players}
+                me={me}
+              />
+              <div className="court-vs" aria-hidden="true">
+                vs
+              </div>
+              <CourtSide
+                team={away}
+                players={match.awayPlayers ?? away.players}
+                me={me}
+              />
+            </article>
+          );
+        })}
+      </div>
     </>
   );
 }

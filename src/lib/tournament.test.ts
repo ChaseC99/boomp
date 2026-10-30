@@ -5,7 +5,7 @@ import { calculateStandings, filterMatches, formatTime } from './tournament.ts';
 
 const { teams, matches } = await getTournamentData();
 
-// Test-only games: the published schedule stays empty until groups are assigned.
+// Test-only scored games, separate from the draft schedule.
 const fixture = (overrides: Partial<Match> = {}): Match => ({
   id: 'test-game',
   stage: 'pool',
@@ -20,12 +20,42 @@ const fixture = (overrides: Partial<Match> = {}): Match => ({
   ...overrides,
 });
 
-test('the roster has three teams of eight with 24 unique players and no inherited fixtures', () => {
+test('the roster has three teams of eight with 24 unique players', () => {
   assert.equal(teams.length, event.teamCount);
   assert.equal(teams.length, 3);
   assert.ok(teams.every((team) => team.players.length === 8));
   assert.equal(new Set(teams.flatMap((team) => team.players)).size, 24);
-  assert.equal(matches.length, 0);
+});
+
+test('every scheduled group of 4 comes from one team and each round seats all 24 players once', () => {
+  const teamOf = (name: string) =>
+    teams.find((team) => team.players.includes(name))?.id;
+  for (const match of matches) {
+    for (const [players, teamId] of [
+      [match.homePlayers, match.homeId],
+      [match.awayPlayers, match.awayId],
+    ] as const) {
+      assert.equal(players?.length, 4, match.id);
+      assert.ok(
+        players.every((name) => teamOf(name) === teamId),
+        match.id,
+      );
+    }
+  }
+  for (const round of new Set(matches.map((match) => match.round))) {
+    const games = matches.filter((match) => match.round === round);
+    assert.deepEqual(
+      games.map((match) => match.court).sort(),
+      [1, 2, 3],
+      `round ${round} courts`,
+    );
+    const seated = games.flatMap((match) => [
+      ...(match.homePlayers ?? []),
+      ...(match.awayPlayers ?? []),
+    ]);
+    assert.equal(seated.length, 24, `round ${round}`);
+    assert.equal(new Set(seated).size, 24, `round ${round}`);
+  }
 });
 
 test('unplayed teams have no results', () => {
