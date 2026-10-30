@@ -76,6 +76,19 @@ export default function Schedule({ teams, matches }: TournamentData) {
   // The name picker only works once the page's script has loaded.
   useEffect(() => setReady(true), []);
 
+  // On phones the courts stack, so bring your court into view. Desktop shows
+  // all three side by side and doesn't need to scroll.
+  useEffect(() => {
+    if (!me || !window.matchMedia('(max-width: 599px)').matches) return;
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    document.querySelector('.court-card.mine')?.scrollIntoView({
+      behavior: reduceMotion ? 'auto' : 'smooth',
+      block: 'nearest',
+    });
+  }, [me, round]);
+
   if (matches.length === 0) {
     return (
       <>

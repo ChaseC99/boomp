@@ -1039,6 +1039,9 @@ abbr {
   overflow: hidden;
 }
 .court-card.mine {
+  /* Keep a scrolled-to court clear of the fixed tab bar. */
+  scroll-margin: 16px 0
+    calc(var(--tab-height) + env(safe-area-inset-bottom, 0px) + 16px);
   border-color: var(--team-ink);
   box-shadow: 0 0 0 2px var(--team-line);
 }
