@@ -80,7 +80,7 @@ const paths: Record<IconName, React.ReactNode> = {
         strokeWidth="1"
       />
       <path
-        d="M7.8 15c.9 2 2.4 3 4.2 3s3.3-1 4.2-3c-1.3.4-2.5.6-3.5.6v1h-1.4v-1c-1 0-2.2-.2-3.5-.6Z"
+        d="M7.6 14.8c.5 1.3 1.2 2.2 2 2.8l.8-.9.8 1.2.8-1.2.8 1.2.8-1.2.8.9c.8-.6 1.5-1.5 2-2.8l-1.5 1-1.3-.9-1.3 1.1-1.3-1.1-1.3.9Z"
         fill="currentColor"
         strokeWidth="1"
       />
