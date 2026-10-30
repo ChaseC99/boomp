@@ -25,7 +25,7 @@ const { teams } = await getTournamentData();
     </header>
     <ol class="team-lineup">
       {teams.map((team) => (
-        <li class="info-card roster-card">
+        <li class:list={['info-card', 'roster-card', team.color]}>
           <div class="roster-heading">
             <TeamBadge team={team} />
             <div>
