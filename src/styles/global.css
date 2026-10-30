@@ -388,7 +388,6 @@ abbr {
   line-height: 1.45;
 }
 .format-steps p,
-.house-rule p,
 .prize-list p,
 .duo-list p {
   margin-top: 5px;
@@ -426,26 +425,6 @@ abbr {
   border-top: 1px solid var(--line);
   font-size: 12px;
   line-height: 1.6;
-}
-.house-rules {
-  display: grid;
-  gap: 12px;
-  margin-top: 16px;
-}
-.house-rule {
-  padding: 18px;
-  background: #f7eee5;
-  border: 1px solid #eadbcd;
-  border-radius: 12px;
-}
-.rule-label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: #98603c;
 }
 .prize-list {
   padding: 0 18px;
@@ -530,9 +509,6 @@ abbr {
   }
 }
 @media (min-width: 600px) {
-  .house-rules {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .duo-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
