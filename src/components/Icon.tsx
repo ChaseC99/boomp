@@ -103,7 +103,7 @@ const paths: Record<IconName, React.ReactNode> = {
     <>
       <path d="M8 16.4 10.8 6.6c.5-1.8 1.8-3 3.6-3.4l2.4-.5-1.4 2.1c-.6.9-.8 2-.5 3L16 16.4" />
       <path d="M3 18.6c0-1.3 4-2.4 9-2.4s9 1.1 9 2.4-4 2.4-9 2.4-9-1.1-9-2.4Z" />
-      <path d="M8.8 13.6h6.8" />
+      <path d="M8.25 13.3h7.9l.3 2.4H7.55Z" fill="currentColor" stroke="none" />
     </>
   ),
   search: (
