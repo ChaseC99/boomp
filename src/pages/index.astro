@@ -26,7 +26,7 @@ const details = [
     icon: 'ball',
     label: 'Volleyball',
     value: event.format,
-    note: 'Groups shuffle every round, points stay with your team',
+    note: 'Groups of 4 shuffle each round. Earn points for your team.',
   },
   {
     icon: 'ghost',
@@ -140,11 +140,6 @@ const details = [
           </div>
         </li>
       </ol>
-      <p class="section-note">
-        {teams.length} teams ·{' '}
-        {teams.reduce((count, team) => count + team.players.length, 0)} players
-        · 3 courts
-      </p>
     </section>
 
     <section class="info-section" aria-labelledby="prizes-heading">

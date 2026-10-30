@@ -397,11 +397,6 @@ abbr {
   font-size: 13px;
   line-height: 1.6;
 }
-.info-section .section-note {
-  margin-top: 10px;
-  font-size: 11px;
-  color: var(--muted);
-}
 .packing-heading {
   margin-top: 16px;
   padding-top: 14px;
