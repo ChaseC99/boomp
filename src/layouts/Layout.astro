@@ -5,8 +5,9 @@ import { event } from '../data/tournament';
 interface Props {
   title?: string;
   active: 'info' | 'teams' | 'schedule' | 'standings';
+  noindex?: boolean;
 }
-const { title, active } = Astro.props;
+const { title, active, noindex = false } = Astro.props;
 const links = [
   { id: 'info', href: '/', label: 'Info', icon: 'info' },
   { id: 'teams', href: '/teams/', label: 'Teams', icon: 'ghost' },
@@ -24,6 +25,7 @@ const links = [
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#faf8f4" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="application-name" content={event.name} />
     <meta name="apple-mobile-web-app-title" content="BOOmp" />
     <title>{title ? `${title} · ${event.name}` : event.name}</title>
