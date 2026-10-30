@@ -1016,6 +1016,10 @@ abbr {
 .my-courts strong {
   font-size: 14px;
   font-weight: 650;
+  color: var(--muted);
+}
+.my-courts button.selected strong {
+  color: var(--ink);
 }
 .round-picker {
   display: flex;
@@ -1035,7 +1039,7 @@ abbr {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
-  color: #5c625a;
+  color: var(--ink);
   font-size: 14px;
   font-weight: 600;
 }
