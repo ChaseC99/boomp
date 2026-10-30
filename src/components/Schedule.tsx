@@ -35,13 +35,17 @@ function CourtSide({
   players: string[];
   me: string;
 }) {
+  // The selected player always leads their group.
+  const ordered = players.includes(me)
+    ? [me, ...players.filter((name) => name !== me)]
+    : players;
   return (
     <div className={`court-side ${team.color}`}>
       <TeamBadge team={team} />
       <div>
         <h3>{team.name}</h3>
         <p>
-          {players.map((name, index) => (
+          {ordered.map((name, index) => (
             <span key={name}>
               {index > 0 && ' · '}
               <span className={name === me ? 'me' : undefined}>{name}</span>
