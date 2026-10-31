@@ -99,7 +99,7 @@ export default function Schedule({ teams, matches }: TournamentData) {
           </span>
           <span className="coming-soon">Coming soon</span>
           <h2>The schedule is still brewing</h2>
-          <p>4v4 matchups and court times will be posted here later.</p>
+          <p>4v4 matchups and court times will be posted here soon!</p>
           <a className="button" href="/teams/">
             See the teams <Icon name="arrow" size={18} />
           </a>
