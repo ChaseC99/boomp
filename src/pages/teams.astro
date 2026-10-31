@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import teamsIllustration from '../assets/teams.png';
+import Icon from '../components/Icon';
 import TeamBadge from '../components/TeamBadge';
 import { getTournamentData } from '../data/tournament';
 const { teams } = await getTournamentData();
@@ -46,5 +47,12 @@ const { teams } = await getTournamentData();
         </li>
       ))}
     </ol>
+    <aside class="waitlist-note">
+      <Icon name="info" size={20} />
+      <div>
+        <h2>If you're not listed, you're still welcome to come!</h2>
+        <p>You can sub in or join a team.</p>
+      </div>
+    </aside>
   </div>
 </Layout>
