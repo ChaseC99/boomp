@@ -142,7 +142,11 @@ const draftRounds = [
 
 // Final scores as [home, away], keyed by game: 'r1-c1' is round 1, court 1.
 // A game counts toward the standings once its score is added here.
-const scores: Record<string, [number, number]> = {};
+const scores: Record<string, [number, number]> = {
+  'r1-c1': [20, 22],
+  'r1-c2': [16, 21],
+  'r1-c3': [21, 19],
+};
 
 const teamIdFor = (players: string[]) =>
   teams.find((team) => team.players.includes(players[0]))?.id ?? '';

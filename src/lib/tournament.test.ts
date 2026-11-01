@@ -59,7 +59,7 @@ test('every scheduled group of 4 comes from one team and each round seats all 24
 });
 
 test('unplayed teams have no results', () => {
-  const rows = calculateStandings(teams, matches);
+  const rows = calculateStandings(teams, []);
   assert.equal(rows.length, 3);
   assert.ok(
     rows.every(
