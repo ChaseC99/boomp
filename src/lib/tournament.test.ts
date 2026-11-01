@@ -98,10 +98,12 @@ test('games on multiple courts accumulate under the parent teams and conserve wi
     rows.reduce((total, row) => total + row.wins, 0),
     games.length,
   );
+  // Level on wins, so team order holds; points don't break the tie.
   assert.deepEqual(
     rows.map((row) => row.team.id),
-    ['t1', 't3', 't2'],
+    ['t1', 't2', 't3'],
   );
+  assert.ok(rows.every((row) => row.rank === 1));
 });
 
 test('unplayed, tied, invalid, and playoff scores do not alter pool standings', () => {
@@ -165,7 +167,7 @@ test('times format as local tournament times without a browser timezone shift', 
   assert.equal(formatTime('16:00'), '4:00 pm');
 });
 
-test('win percentage takes priority over total wins', () => {
+test('total wins decide the ranking', () => {
   const games = [
     fixture({ homeId: 't1', awayId: 't3' }),
     fixture({ homeId: 't1', awayId: 't3' }),
@@ -173,8 +175,12 @@ test('win percentage takes priority over total wins', () => {
     fixture({ homeId: 't2', awayId: 't3' }),
   ];
   const rows = calculateStandings(teams, games);
-  assert.equal(rows[0].team.id, 't2');
-  assert.equal(rows[0].winPercentage, 1);
-  assert.equal(rows[1].team.id, 't1');
-  assert.equal(rows[1].wins, 2);
+  assert.deepEqual(
+    rows.map((row) => [row.team.id, row.wins, row.rank]),
+    [
+      ['t1', 2, 1],
+      ['t2', 1, 2],
+      ['t3', 1, 2],
+    ],
+  );
 });

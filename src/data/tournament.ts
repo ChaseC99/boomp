@@ -140,6 +140,10 @@ const draftRounds = [
   ],
 ];
 
+// Final scores as [home, away], keyed by game: 'r1-c1' is round 1, court 1.
+// A game counts toward the standings once its score is added here.
+const scores: Record<string, [number, number]> = {};
+
 const teamIdFor = (players: string[]) =>
   teams.find((team) => team.players.includes(players[0]))?.id ?? '';
 
@@ -147,8 +151,10 @@ const matches: Match[] = draftRounds.flatMap((courts, roundIndex) =>
   courts.map(([home, away], courtIndex) => {
     const homePlayers = home.split(' ');
     const awayPlayers = away.split(' ');
+    const id = `r${roundIndex + 1}-c${courtIndex + 1}`;
+    const score = scores[id] ?? null;
     return {
-      id: `r${roundIndex + 1}-c${courtIndex + 1}`,
+      id,
       stage: 'pool',
       round: roundIndex + 1,
       time: '',
@@ -157,8 +163,8 @@ const matches: Match[] = draftRounds.flatMap((courts, roundIndex) =>
       awayId: teamIdFor(awayPlayers),
       homePlayers,
       awayPlayers,
-      status: 'scheduled',
-      score: null,
+      status: score ? 'final' : 'scheduled',
+      score,
     };
   }),
 );

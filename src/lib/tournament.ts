@@ -55,20 +55,13 @@ export function calculateStandings(
       row.difference = row.pointsFor - row.pointsAgainst;
     }
   }
-  rows.sort(
-    (a, b) =>
-      b.winPercentage - a.winPercentage ||
-      b.difference - a.difference ||
-      a.team.name.localeCompare(b.team.name),
-  );
+  // Most wins ranks first. Teams level on wins share a rank and keep their
+  // team order; the best dressed team breaks a tie on the day.
+  rows.sort((a, b) => b.wins - a.wins);
   rows.forEach((row, index) => {
     const previous = rows[index - 1];
     row.rank =
-      previous &&
-      previous.winPercentage === row.winPercentage &&
-      previous.difference === row.difference
-        ? previous.rank
-        : index + 1;
+      previous && previous.wins === row.wins ? previous.rank : index + 1;
   });
   return rows;
 }
