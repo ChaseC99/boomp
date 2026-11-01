@@ -10,20 +10,18 @@ const data = await getTournamentData();
 ---
 
 <Layout title="Schedule" active="schedule" noindex>
-  <div class="wrap interior-page">
-    <header class="page-heading">
-      <h1>Schedule</h1>
+  <div class="wrap interior-page schedule-page">
+    <Schedule {...data} client:load>
       <Image
         src={scheduleIllustration}
         alt=""
-        width={134}
-        height={134}
-        widths={[134, 268, 402]}
-        sizes="(min-width: 600px) 134px, 112px"
+        width={112}
+        height={112}
+        widths={[96, 112, 192, 224, 336]}
+        sizes="(min-width: 600px) 112px, 96px"
         loading="eager"
       />
-    </header>
-    <Schedule {...data} client:load />
+    </Schedule>
     {data.matches.length > 0 && (
       <noscript>
         <p class="noscript-notice">

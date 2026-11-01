@@ -1002,21 +1002,46 @@ abbr {
 }
 
 /* Schedule: find your court, then read one round at a time. */
-.find-court {
-  padding: 16px;
-  margin-bottom: 16px;
+.interior-page.schedule-page {
+  padding-top: max(16px, env(safe-area-inset-top, 0px));
 }
-.find-court > label {
+.schedule-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.schedule-heading-copy {
+  flex: 1;
+  min-width: 0;
+  max-width: 320px;
+}
+.schedule-art {
+  flex: 0 0 96px;
+  height: 96px;
+}
+.schedule-art img {
   display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: 650;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.find-court {
+  margin-top: 8px;
+}
+.find-court .select-field {
+  width: 100%;
+}
+.find-court select {
+  height: 44px;
+  padding-left: 12px;
 }
 .round-picker {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  margin: 0 -16px 14px;
+  margin: 0 -16px 8px;
   padding: 2px 16px 4px;
   scrollbar-width: none;
 }
@@ -1028,9 +1053,9 @@ abbr {
   justify-items: center;
   align-content: center;
   flex: 0 0 auto;
-  min-height: 40px;
+  min-height: 44px;
   line-height: 1.25;
-  padding: 6px 16px;
+  padding: 4px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
@@ -1051,10 +1076,6 @@ abbr {
   background: #e9e6df;
   border-color: #d8d4ca;
   color: var(--ink);
-}
-.round-title {
-  margin-bottom: 10px;
-  font-size: 18px;
 }
 .court-list {
   display: grid;
@@ -1077,21 +1098,10 @@ abbr {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 9px 16px;
 }
 .court-header strong {
   font-size: 15px;
-}
-.court-number {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: #e9e6df;
-  color: var(--ink);
-  font-size: 15px;
-  font-weight: 700;
 }
 .you-here {
   margin-left: auto;
@@ -1135,7 +1145,7 @@ abbr {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 16px;
+  padding: 2px 16px;
   color: var(--muted);
   font-size: 11px;
   font-weight: 700;
@@ -1149,6 +1159,10 @@ abbr {
   background: var(--line);
 }
 @media (min-width: 600px) {
+  .schedule-art {
+    flex-basis: 112px;
+    height: 112px;
+  }
   .court-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import type { Match, Team, TournamentData } from '../data/tournament';
 import { event } from '../data/tournament';
 import Icon from './Icon';
@@ -65,7 +65,11 @@ const playersIn = (match: Match) => [
   ...(match.awayPlayers ?? []),
 ];
 
-export default function Schedule({ teams, matches }: TournamentData) {
+export default function Schedule({
+  teams,
+  matches,
+  children,
+}: TournamentData & { children: ReactNode }) {
   const rounds = [...new Set(matches.map((match) => match.round))].sort(
     (a, b) => a - b,
   );
@@ -89,9 +93,46 @@ export default function Schedule({ teams, matches }: TournamentData) {
     });
   }, [me, round]);
 
+  const heading = (
+    <header className="schedule-heading">
+      <div className="schedule-heading-copy">
+        <h1>Schedule</h1>
+        {matches.length > 0 && (
+          <div className="find-court">
+            <label className="sr-only" htmlFor="me-select">
+              Find your court
+            </label>
+            <div className="select-field">
+              <select
+                id="me-select"
+                disabled={!ready}
+                value={me}
+                onChange={(event) => setMe(event.target.value)}
+              >
+                <option value="">Pick your name</option>
+                {teams.map((team) => (
+                  <optgroup key={team.id} label={team.name}>
+                    {team.players.map((name) => (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              <Icon name="chevron" size={17} />
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="schedule-art">{children}</div>
+    </header>
+  );
+
   if (matches.length === 0) {
     return (
       <>
+        {heading}
         <MeetingBanner />
         <section className="empty-state">
           <span className="empty-icon">
@@ -122,31 +163,7 @@ export default function Schedule({ teams, matches }: TournamentData) {
 
   return (
     <>
-      <section className="info-card find-court" aria-labelledby="find-court">
-        <label id="find-court" htmlFor="me-select">
-          Find your court
-        </label>
-        <div className="select-field">
-          <select
-            id="me-select"
-            disabled={!ready}
-            value={me}
-            onChange={(event) => setMe(event.target.value)}
-          >
-            <option value="">Pick your name</option>
-            {teams.map((team) => (
-              <optgroup key={team.id} label={team.name}>
-                {team.players.map((name) => (
-                  <option key={name} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-          <Icon name="chevron" size={17} />
-        </div>
-      </section>
+      {heading}
 
       <div className="round-picker" role="tablist" aria-label="Rounds">
         {myCourts.map(({ round: number, match }) => (
@@ -165,8 +182,10 @@ export default function Schedule({ teams, matches }: TournamentData) {
         ))}
       </div>
 
-      <h2 className="round-title">Round {round}</h2>
-      <div className="court-list">
+      <h2 className="sr-only" id="round-heading">
+        Round {round}
+      </h2>
+      <div className="court-list" aria-labelledby="round-heading">
         {games.map((match) => {
           const home = teamById(match.homeId);
           const away = teamById(match.awayId);
@@ -179,9 +198,6 @@ export default function Schedule({ teams, matches }: TournamentData) {
               aria-label={`Court ${match.court}: ${home.name} versus ${away.name}`}
             >
               <header className="court-header">
-                <span className="court-number" aria-hidden="true">
-                  {match.court}
-                </span>
                 <strong>Court {match.court}</strong>
                 {mine && <span className="you-here">You're here</span>}
               </header>
