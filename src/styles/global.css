@@ -1141,6 +1141,20 @@ abbr {
   background: var(--team-ink);
   color: #fff;
 }
+/* Scores sit at the right of each side; the winner's is bold in team colour. */
+.court-score {
+  margin-left: auto;
+  align-self: center;
+  padding-left: 8px;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.court-score.won {
+  font-weight: 750;
+  color: var(--team-ink);
+}
 .court-vs {
   display: flex;
   align-items: center;

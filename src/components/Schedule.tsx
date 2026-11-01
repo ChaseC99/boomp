@@ -30,10 +30,14 @@ function CourtSide({
   team,
   players,
   me,
+  score,
+  won,
 }: {
   team: Team;
   players: string[];
   me: string;
+  score?: number;
+  won?: boolean;
 }) {
   // The selected player always leads their group.
   const ordered = players.includes(me)
@@ -56,6 +60,9 @@ function CourtSide({
           ))}
         </p>
       </div>
+      {score !== undefined && (
+        <span className={`court-score ${won ? 'won' : ''}`}>{score}</span>
+      )}
     </div>
   );
 }
@@ -191,11 +198,16 @@ export default function Schedule({
           const away = teamById(match.awayId);
           if (!home || !away) return null;
           const mine = Boolean(me) && playersIn(match).includes(me);
+          const score = match.status === 'final' ? match.score : null;
           return (
             <article
               className={`court-card ${mine ? `mine ${myTeam?.color}` : ''}`}
               key={match.id}
-              aria-label={`Court ${match.court}: ${home.name} versus ${away.name}`}
+              aria-label={
+                score
+                  ? `Court ${match.court}: ${home.name} ${score[0]}, ${away.name} ${score[1]}`
+                  : `Court ${match.court}: ${home.name} versus ${away.name}`
+              }
             >
               <header className="court-header">
                 <strong>Court {match.court}</strong>
@@ -205,14 +217,18 @@ export default function Schedule({
                 team={home}
                 players={match.homePlayers ?? home.players}
                 me={me}
+                score={score?.[0]}
+                won={score !== null && score[0] > score[1]}
               />
               <div className="court-vs" aria-hidden="true">
-                vs
+                {score ? 'Final' : 'vs'}
               </div>
               <CourtSide
                 team={away}
                 players={match.awayPlayers ?? away.players}
                 me={me}
+                score={score?.[1]}
+                won={score !== null && score[1] > score[0]}
               />
             </article>
           );
