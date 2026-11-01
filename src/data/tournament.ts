@@ -66,8 +66,8 @@ const teams: Team[] = [
       'Alan',
       'Ellie',
       'Ethan',
+      'Evan',
       'James',
-      'Jasper',
       'Justin',
       'Leeam',
       'Matthew',
@@ -86,8 +86,8 @@ const teams: Team[] = [
       'Chase',
       'Christi',
       'Fayaz',
-      'Jeff',
-      'Karl',
+      'Harshith',
+      'Jasper',
       'Rachel',
     ],
   },
@@ -112,31 +112,33 @@ const teams: Team[] = [
 ];
 
 // Five rounds. Groups of 4 reshuffle each round; times are not shown yet.
+// Evan replaces Jasper from round 1. Team 2's substitutions begin in round 2:
+// Jasper replaces Jeff and Harshith replaces Karl; round 1 keeps its lineup.
 const draftRounds = [
   [
-    ['Ellie James Jasper Justin', 'Barney Chase Fayaz Rachel'],
+    ['Ellie James Evan Justin', 'Barney Chase Fayaz Rachel'],
     ['Bob Christi Jeff Karl', 'Dhruvit Jack Kasey Nathan'],
     ['Connor Eugene Johanan Saketh', 'Alan Ethan Leeam Matthew'],
   ],
   [
-    ['Ellie Ethan James Leeam', 'Fayaz Jeff Karl Rachel'],
+    ['Ellie Ethan James Leeam', 'Fayaz Jasper Harshith Rachel'],
     ['Barney Bob Chase Christi', 'Connor Jack Johanan Kasey'],
-    ['Dhruvit Eugene Nathan Saketh', 'Alan Jasper Justin Matthew'],
+    ['Dhruvit Eugene Nathan Saketh', 'Alan Evan Justin Matthew'],
   ],
   [
-    ['Ethan James Jasper Matthew', 'Chase Christi Karl Rachel'],
-    ['Barney Bob Fayaz Jeff', 'Dhruvit Eugene Johanan Kasey'],
+    ['Ethan James Evan Matthew', 'Chase Christi Harshith Rachel'],
+    ['Barney Bob Fayaz Jasper', 'Dhruvit Eugene Johanan Kasey'],
     ['Connor Jack Nathan Saketh', 'Alan Ellie Justin Leeam'],
   ],
   [
     ['Ellie Ethan Justin Matthew', 'Barney Bob Christi Rachel'],
-    ['Chase Fayaz Jeff Karl', 'Dhruvit Eugene Kasey Saketh'],
-    ['Connor Jack Johanan Nathan', 'Alan James Jasper Leeam'],
+    ['Chase Fayaz Jasper Harshith', 'Dhruvit Eugene Kasey Saketh'],
+    ['Connor Jack Johanan Nathan', 'Alan James Evan Leeam'],
   ],
   [
-    ['Alan Ellie Ethan James', 'Bob Chase Jeff Rachel'],
-    ['Barney Christi Fayaz Karl', 'Eugene Jack Johanan Kasey'],
-    ['Connor Dhruvit Nathan Saketh', 'Jasper Justin Leeam Matthew'],
+    ['Alan Ellie Ethan James', 'Bob Chase Jasper Rachel'],
+    ['Barney Christi Fayaz Harshith', 'Eugene Jack Johanan Kasey'],
+    ['Connor Dhruvit Nathan Saketh', 'Evan Justin Leeam Matthew'],
   ],
 ];
 
@@ -146,6 +148,8 @@ const scores: Record<string, [number, number]> = {
   'r1-c1': [20, 22],
   'r1-c2': [16, 21],
   'r1-c3': [21, 19],
+  'r2-c2': [15, 21],
+  'r2-c3': [21, 16],
 };
 
 const teamIdFor = (players: string[]) =>
