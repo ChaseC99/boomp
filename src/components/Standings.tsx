@@ -38,6 +38,11 @@ export default function Standings({ teams, matches }: TournamentData) {
                 <th scope="col" className="stat-cell">
                   <abbr title="Losses">L</abbr>
                 </th>
+                <th scope="col" className="difference-cell">
+                  <abbr title="Point differential: points scored minus points allowed in completed games">
+                    Point diff
+                  </abbr>
+                </th>
                 <th scope="col" className="percent-cell">
                   <abbr title="Win percentage">W%</abbr>
                 </th>
@@ -71,6 +76,9 @@ export default function Standings({ teams, matches }: TournamentData) {
                   <td className="played-cell">{row.played}</td>
                   <td className="wins-cell">{row.wins}</td>
                   <td>{row.losses}</td>
+                  <td className="difference-cell">
+                    {row.difference > 0 ? `+${row.difference}` : row.difference}
+                  </td>
                   <td className="percent-cell">
                     {Math.round(row.winPercentage * 100)}%
                   </td>

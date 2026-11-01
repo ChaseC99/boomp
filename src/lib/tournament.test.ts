@@ -120,8 +120,45 @@ test('unplayed, tied, invalid, and playoff scores do not alter pool standings', 
   ];
   assert.ok(
     calculateStandings(teams, games).every(
-      (row) => row.played === 0 && row.rank === 1,
+      (row) =>
+        row.played === 0 &&
+        row.rank === 1 &&
+        row.pointsFor === 0 &&
+        row.pointsAgainst === 0 &&
+        row.difference === 0,
     ),
+  );
+});
+
+test('point differential totals completed games without breaking ties in wins', () => {
+  const games = [
+    fixture({ score: [21, 15] }),
+    fixture({ homeId: 't2', awayId: 't3', score: [21, 19] }),
+    fixture({ homeId: 't3', awayId: 't1', score: [21, 19] }),
+  ];
+  const rows = calculateStandings(teams, games);
+  assert.deepEqual(
+    rows.map((row) => [
+      row.team.id,
+      row.pointsFor,
+      row.pointsAgainst,
+      row.difference,
+      row.rank,
+    ]),
+    [
+      ['t1', 40, 36, 4, 1],
+      ['t2', 36, 40, -4, 1],
+      ['t3', 40, 40, 0, 1],
+    ],
+  );
+  assert.deepEqual(
+    calculateStandings(teams, [
+      ...games,
+      fixture({ status: 'scheduled', score: [21, 0] }),
+      fixture({ score: null }),
+      fixture({ score: [21, 21] }),
+    ]),
+    rows,
   );
 });
 

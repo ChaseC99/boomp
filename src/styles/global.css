@@ -1251,6 +1251,9 @@ tbody tr:last-child {
 .stat-cell {
   width: 30px;
 }
+.difference-cell {
+  width: 60px;
+}
 .percent-cell {
   width: 56px;
   padding-right: 16px;
