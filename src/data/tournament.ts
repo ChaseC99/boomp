@@ -157,6 +157,9 @@ const scores: Record<string, [number, number]> = {
   'r4-c1': [21, 19],
   'r4-c2': [25, 23],
   'r4-c3': [13, 21],
+  'r5-c1': [19, 21],
+  'r5-c2': [16, 21],
+  'r5-c3': [21, 16],
 };
 
 const teamIdFor = (players: string[]) =>
